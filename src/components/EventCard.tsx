@@ -8,7 +8,8 @@ import {
   User,
   File,
   UserPlus,
-  Mail
+  Mail,
+  Terminal
 } from 'lucide-react'
 import type { Event } from '../types/events'
 
@@ -34,6 +35,8 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
         return <UserPlus className="w-5 h-5 text-teal-500" />
       case 'email_received':
         return <Mail className="w-5 h-5 text-indigo-500" />
+      case 'cron_executed':
+        return <Terminal className="w-5 h-5 text-gray-500" />
       default:
         return <Clock className="w-5 h-5 text-gray-500" />
     }
@@ -55,6 +58,8 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
         return 'border-l-teal-500 bg-teal-50'
       case 'email_received':
         return 'border-l-indigo-500 bg-indigo-50'
+      case 'cron_executed':
+        return 'border-l-gray-500 bg-gray-50'
       default:
         return 'border-l-gray-500 bg-gray-50'
     }
@@ -118,6 +123,18 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
                   <div className="flex items-center space-x-1">
                     <Package className="w-4 h-4" />
                     <span>{event.metadata.appName} {event.metadata.appVersion}</span>
+                  </div>
+                )}
+                {event.metadata.triggerName && (
+                  <div className="flex items-center space-x-1">
+                    <Terminal className="w-4 h-4" />
+                    <span>{event.metadata.triggerName}</span>
+                  </div>
+                )}
+                {event.metadata.executionTime && (
+                  <div className="flex items-center space-x-1">
+                    <span className="font-medium">Execution:</span>
+                    <span>{event.metadata.executionTime}</span>
                   </div>
                 )}
               </div>

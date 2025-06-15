@@ -7,7 +7,8 @@ export const eventTypeSchema = z.enum([
   'file_deleted',
   'app_installed',
   'contact_request',
-  'email_received'
+  'email_received',
+  'cron_executed'
 ])
 
 export const eventSchema = z.object({
@@ -24,7 +25,10 @@ export const eventSchema = z.object({
     appName: z.string().optional(),
     appVersion: z.string().optional(),
     sender: z.string().optional(),
-    subject: z.string().optional()
+    subject: z.string().optional(),
+    cronExpression: z.string().optional(),
+    executionTime: z.string().optional(),
+    triggerName: z.string().optional()
   }).optional()
 })
 

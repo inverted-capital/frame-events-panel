@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Activity, Search } from 'lucide-react'
+import { Activity, Search, Zap } from 'lucide-react'
 import useEventsData from './hooks/useEventsData'
 import useEventsSaver from './hooks/useEventsSaver'
+import useTriggersData from './hooks/useTriggersData'
+import useTriggersSaver from './hooks/useTriggersSaver'
 import EventCard from './components/EventCard'
 import EventFilter from './components/EventFilter'
 import EventModal from './components/EventModal'
+import TriggerManager from './components/TriggerManager'
 import type { EventsData, EventType, Event } from './types/events'
+import type { TriggersData } from './types/triggers'
 
 const defaultEventsData: EventsData = {
   events: [
@@ -325,23 +329,160 @@ const defaultEventsData: EventsData = {
         sender: 'sarah.chen@client.com',
         subject: 'Re: Design Mockups - Feedback and Revisions'
       }
+    },
+    {
+      id: '30',
+      type: 'cron_executed',
+      title: 'Daily backup completed',
+      description: 'Automated daily backup of user data and system configurations completed successfully.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+      metadata: {
+        cronExpression: '0 2 * * *',
+        executionTime: '0.34s',
+        triggerName: 'Daily Backup Trigger'
+      }
+    },
+    {
+      id: '31',
+      type: 'cron_executed',
+      title: 'Weekly report generated',
+      description: 'System performance and usage statistics report has been generated and sent to administrators.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      metadata: {
+        cronExpression: '0 0 * * 1',
+        executionTime: '1.2s',
+        triggerName: 'Weekly Report Trigger'
+      }
+    }
+  ]
+}
+
+const defaultTriggersData: TriggersData = {
+  triggers: [
+    {
+      id: 'trigger_1',
+      name: 'High Priority Message Alert',
+      description: 'Send notification when Sarah Chen sends a message',
+      enabled: true,
+      condition: {
+        type: 'event',
+        eventType: 'message_received',
+        contactEquals: 'Sarah Chen'
+      },
+      actions: [
+        {
+          id: 'action_1',
+          type: 'notification',
+          name: 'Desktop Notification',
+          description: 'Show desktop notification',
+          config: {
+            message: 'Priority message from {{event.metadata.contact}}: {{event.title}}'
+          }
+        },
+        {
+          id: 'action_2',
+          type: 'email',
+          name: 'Email Alert',
+          description: 'Send email to admin',
+          config: {
+            to: 'admin@company.com',
+            subject: 'Priority Message Alert: {{event.metadata.contact}}'
+          }
+        }
+      ],
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+      lastTriggered: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+      triggerCount: 12
+    },
+    {
+      id: 'trigger_2',
+      name: 'Daily System Backup',
+      description: 'Automated daily backup at 2 AM',
+      enabled: true,
+      condition: {
+        type: 'timer',
+        cronExpression: '0 2 * * *',
+        description: 'Daily at 2:00 AM'
+      },
+      actions: [
+        {
+          id: 'action_3',
+          type: 'custom',
+          name: 'Backup Script',
+          description: 'Run backup procedures',
+          config: {
+            script: 'console.log("Running backup..."); // backup logic here'
+          }
+        },
+        {
+          id: 'action_4',
+          type: 'log',
+          name: 'Log Backup',
+          description: 'Log backup completion',
+          config: {}
+        }
+      ],
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString(),
+      lastTriggered: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+      triggerCount: 30
+    },
+    {
+      id: 'trigger_3',
+      name: 'File Deletion Monitor',
+      description: 'Monitor and log all file deletions',
+      enabled: true,
+      condition: {
+        type: 'event',
+        eventType: 'file_deleted'
+      },
+      actions: [
+        {
+          id: 'action_5',
+          type: 'webhook',
+          name: 'Security Webhook',
+          description: 'Notify security system',
+          config: {
+            url: 'https://security.company.com/api/file-deletion',
+            method: 'POST'
+          }
+        },
+        {
+          id: 'action_6',
+          type: 'log',
+          name: 'Audit Log',
+          description: 'Create audit trail entry',
+          config: {}
+        }
+      ],
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14).toISOString(),
+      lastTriggered: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
+      triggerCount: 8
     }
   ]
 }
 
 export default function App() {
   const { data, loading, error } = useEventsData()
+  const { data: triggersData, error: triggersError } = useTriggersData()
   const save = useEventsSaver()
+  const saveTriggers = useTriggersSaver()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTypes, setSelectedTypes] = useState<EventType[]>([])
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+  const [showTriggerManager, setShowTriggerManager] = useState(false)
 
   useEffect(() => {
     if (error === 'events.json not found') {
       save(defaultEventsData)
     }
   }, [error, save])
+
+  useEffect(() => {
+    if (triggersError === 'triggers.json not found') {
+      saveTriggers(defaultTriggersData)
+    }
+  }, [triggersError, saveTriggers])
 
   useEffect(() => {
     if (data?.events) {
@@ -409,13 +550,31 @@ export default function App() {
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center space-x-3 mb-4">
-            <div className="p-3 bg-blue-600 rounded-xl">
-              <Activity className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <div className="p-3 bg-blue-600 rounded-xl">
+                <Activity className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Activity Dashboard</h1>
+                <p className="text-gray-600">Track and manage all your important events</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Activity Dashboard</h1>
-              <p className="text-gray-600">Track and manage all your important events</p>
+            
+            <div className="flex items-center space-x-3">
+              <div className="text-right">
+                <div className="text-sm text-gray-500">Active Triggers</div>
+                <div className="text-2xl font-bold text-blue-600">
+                  {triggersData?.triggers.filter(t => t.enabled).length || 0}
+                </div>
+              </div>
+              <button
+                onClick={() => setShowTriggerManager(true)}
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                <Zap className="w-5 h-5" />
+                <span>Manage Triggers</span>
+              </button>
             </div>
           </div>
           
@@ -486,6 +645,11 @@ export default function App() {
         event={selectedEvent} 
         onClose={handleCloseModal} 
       />
+
+      {/* Trigger Manager */}
+      {showTriggerManager && (
+        <TriggerManager onClose={() => setShowTriggerManager(false)} />
+      )}
     </div>
   )
 }

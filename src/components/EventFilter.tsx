@@ -15,7 +15,8 @@ const EventFilter = ({ selectedTypes, onTypeToggle, onClearAll }: EventFilterPro
     { type: 'file_deleted', label: 'File Deletions', color: 'bg-red-100 text-red-800 border-red-200' },
     { type: 'app_installed', label: 'App Installs', color: 'bg-purple-100 text-purple-800 border-purple-200' },
     { type: 'contact_request', label: 'Contact Requests', color: 'bg-teal-100 text-teal-800 border-teal-200' },
-    { type: 'email_received', label: 'Emails', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' }
+    { type: 'email_received', label: 'Emails', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' },
+    { type: 'cron_executed', label: 'Cron Jobs', color: 'bg-gray-100 text-gray-800 border-gray-200' }
   ]
 
   return (

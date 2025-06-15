@@ -4,6 +4,7 @@ import { ArtifactFrame, ArtifactSyncer } from '@artifact/client/react'
 import { HOST_SCOPE } from '@artifact/client/api'
 import App from './App.tsx'
 import type { EventsData } from './types/events'
+import type { TriggersData } from './types/triggers'
 import './index.css'
 
 const mockEventsData: EventsData = {
@@ -65,116 +66,18 @@ const mockEventsData: EventsData = {
     },
     {
       id: '6',
-      type: 'message_received',
-      title: 'New message from Marcus Kim',
-      description: 'Thanks for the feedback on the designs. I\'ve made the requested changes and updated the files.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 240).toISOString(),
+      type: 'cron_executed',
+      title: 'Daily backup completed',
+      description: 'Automated daily backup of user data and system configurations completed successfully.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
       metadata: {
-        contact: 'Marcus Kim',
-        threadId: 'thread_ghi789'
+        cronExpression: '0 2 * * *',
+        executionTime: '0.34s',
+        triggerName: 'Daily Backup Trigger'
       }
     },
     {
       id: '7',
-      type: 'thread_started',
-      title: 'New conversation with Emma Johnson',
-      description: 'Emma Johnson initiated a discussion about the Q4 marketing strategy and budget allocation.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 300).toISOString(),
-      metadata: {
-        contact: 'Emma Johnson',
-        threadId: 'thread_jkl012'
-      }
-    },
-    {
-      id: '8',
-      type: 'file_altered',
-      title: 'Spreadsheet updated',
-      description: 'The budget analysis spreadsheet has been updated with new quarterly projections and formulas.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 360).toISOString(),
-      metadata: {
-        fileName: 'budget-analysis-q4.xlsx',
-        filePath: '/finance/reports/'
-      }
-    },
-    {
-      id: '9',
-      type: 'message_received',
-      title: 'New message from David Park',
-      description: 'Can we schedule a code review for the authentication module? I have some concerns about the security implementation.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 420).toISOString(),
-      metadata: {
-        contact: 'David Park',
-        threadId: 'thread_mno345'
-      }
-    },
-    {
-      id: '10',
-      type: 'app_installed',
-      title: 'Security scanner installed',
-      description: 'CodeScan Security Pro has been installed to monitor code vulnerabilities and compliance.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 480).toISOString(),
-      metadata: {
-        appName: 'CodeScan Security Pro',
-        appVersion: 'v3.1.0'
-      }
-    },
-    {
-      id: '11',
-      type: 'file_deleted',
-      title: 'Old logs removed',
-      description: 'Outdated log files from previous deployments have been cleaned up to free disk space.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 540).toISOString(),
-      metadata: {
-        fileName: 'deployment-logs-2024-01.tar.gz',
-        filePath: '/logs/archive/'
-      }
-    },
-    {
-      id: '12',
-      type: 'thread_started',
-      title: 'New conversation with Lisa Thompson',
-      description: 'Lisa Thompson started a discussion about the new user interface designs and accessibility requirements.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 600).toISOString(),
-      metadata: {
-        contact: 'Lisa Thompson',
-        threadId: 'thread_pqr678'
-      }
-    },
-    {
-      id: '13',
-      type: 'message_received',
-      title: 'New message from James Wilson',
-      description: 'The database migration completed successfully. All tables have been updated with the new schema.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 660).toISOString(),
-      metadata: {
-        contact: 'James Wilson',
-        threadId: 'thread_stu901'
-      }
-    },
-    {
-      id: '14',
-      type: 'file_altered',
-      title: 'Configuration updated',
-      description: 'Application configuration file has been modified to include new API endpoints and feature flags.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 720).toISOString(),
-      metadata: {
-        fileName: 'app-config.json',
-        filePath: '/config/'
-      }
-    },
-    {
-      id: '15',
-      type: 'app_installed',
-      title: 'Analytics platform installed',
-      description: 'DataViz Analytics Suite has been installed to provide comprehensive business intelligence dashboards.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 780).toISOString(),
-      metadata: {
-        appName: 'DataViz Analytics Suite',
-        appVersion: 'v4.2.3'
-      }
-    },
-    {
-      id: '16',
       type: 'contact_request',
       title: 'New contact request from Jennifer Martinez',
       description: 'Jennifer Martinez would like to connect with you. She is a UX Designer at TechFlow Inc.',
@@ -184,7 +87,7 @@ const mockEventsData: EventsData = {
       }
     },
     {
-      id: '17',
+      id: '8',
       type: 'email_received',
       title: 'New email from project-updates@company.com',
       description: 'Weekly project status update with progress reports from all active development teams.',
@@ -193,27 +96,61 @@ const mockEventsData: EventsData = {
         sender: 'project-updates@company.com',
         subject: 'Weekly Project Status Update - Week 12'
       }
+    }
+  ]
+}
+
+const mockTriggersData: TriggersData = {
+  triggers: [
+    {
+      id: 'trigger_1',
+      name: 'High Priority Message Alert',
+      description: 'Send notification when Sarah Chen sends a message',
+      enabled: true,
+      condition: {
+        type: 'event',
+        eventType: 'message_received',
+        contactEquals: 'Sarah Chen'
+      },
+      actions: [
+        {
+          id: 'action_1',
+          type: 'notification',
+          name: 'Desktop Notification',
+          description: 'Show desktop notification',
+          config: {
+            message: 'Priority message from {{event.metadata.contact}}: {{event.title}}'
+          }
+        }
+      ],
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+      lastTriggered: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+      triggerCount: 12
     },
     {
-      id: '18',
-      type: 'contact_request',
-      title: 'New contact request from Ryan Thompson',
-      description: 'Ryan Thompson from Digital Solutions wants to connect. He mentioned your work on the mobile app project.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 450).toISOString(),
-      metadata: {
-        contact: 'Ryan Thompson'
-      }
-    },
-    {
-      id: '19',
-      type: 'email_received',
-      title: 'New email from sarah.chen@client.com',
-      description: 'Client feedback on the latest design mockups with detailed comments and requested revisions.',
-      timestamp: new Date(Date.now() - 1000 * 60 * 1440).toISOString(),
-      metadata: {
-        sender: 'sarah.chen@client.com',
-        subject: 'Re: Design Mockups - Feedback and Revisions'
-      }
+      id: 'trigger_2',
+      name: 'Daily System Backup',
+      description: 'Automated daily backup at 2 AM',
+      enabled: true,
+      condition: {
+        type: 'timer',
+        cronExpression: '0 2 * * *',
+        description: 'Daily at 2:00 AM'
+      },
+      actions: [
+        {
+          id: 'action_2',
+          type: 'custom',
+          name: 'Backup Script',
+          description: 'Run backup procedures',
+          config: {
+            script: 'console.log("Running backup..."); // backup logic here'
+          }
+        }
+      ],
+      createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString(),
+      lastTriggered: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+      triggerCount: 30
     }
   ]
 }
@@ -221,7 +158,14 @@ const mockEventsData: EventsData = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ArtifactFrame
-      mockRepos={{ mock: { main: { 'events.json': mockEventsData } } }}
+      mockRepos={{ 
+        mock: { 
+          main: { 
+            'events.json': mockEventsData,
+            'triggers.json': mockTriggersData
+          } 
+        } 
+      }}
       mockFrameProps={{
         target: { did: HOST_SCOPE.did, repo: 'mock', branch: 'main' }
       }}
