@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { 
-  Plus, 
-  Play, 
-  Pause, 
-  Trash2, 
-  Edit, 
+import {
+  Plus,
+  Play,
+  Pause,
+  Trash2,
+  Edit,
   Zap,
   Clock,
   Filter,
@@ -17,7 +17,7 @@ import {
 import useTriggersData from '../hooks/useTriggersData'
 import useTriggersSaver from '../hooks/useTriggersSaver'
 import TriggerCreator from './TriggerCreator'
-import type { Trigger, TriggersData } from '../types/triggers'
+import type { Trigger } from '../types/triggers'
 
 interface TriggerManagerProps {
   onClose: () => void
@@ -47,9 +47,11 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
   }
 
   const getTriggerIcon = (trigger: Trigger) => {
-    return trigger.condition.type === 'event' 
-      ? <Filter className="w-5 h-5 text-blue-500" />
-      : <Clock className="w-5 h-5 text-green-500" />
+    return trigger.condition.type === 'event' ? (
+      <Filter className="w-5 h-5 text-blue-500" />
+    ) : (
+      <Clock className="w-5 h-5 text-green-500" />
+    )
   }
 
   const formatTriggerCondition = (trigger: Trigger) => {
@@ -62,7 +64,9 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
         parts.push(`Title contains: "${trigger.condition.titleContains}"`)
       }
       if (trigger.condition.descriptionContains) {
-        parts.push(`Description contains: "${trigger.condition.descriptionContains}"`)
+        parts.push(
+          `Description contains: "${trigger.condition.descriptionContains}"`
+        )
       }
       if (trigger.condition.contactEquals) {
         parts.push(`Contact equals: "${trigger.condition.contactEquals}"`)
@@ -86,20 +90,22 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
 
   const toggleTrigger = async (triggerId: string) => {
     if (!data) return
-    
-    const updatedTriggers = data.triggers.map(trigger => 
-      trigger.id === triggerId 
+
+    const updatedTriggers = data.triggers.map((trigger) =>
+      trigger.id === triggerId
         ? { ...trigger, enabled: !trigger.enabled }
         : trigger
     )
-    
+
     await save({ triggers: updatedTriggers })
   }
 
   const deleteTrigger = async (triggerId: string) => {
     if (!data) return
-    
-    const updatedTriggers = data.triggers.filter(trigger => trigger.id !== triggerId)
+
+    const updatedTriggers = data.triggers.filter(
+      (trigger) => trigger.id !== triggerId
+    )
     await save({ triggers: updatedTriggers })
   }
 
@@ -123,7 +129,7 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
 
   if (showCreator || editingTrigger) {
     return (
-      <TriggerCreator 
+      <TriggerCreator
         onClose={() => {
           setShowCreator(false)
           setEditingTrigger(null)
@@ -144,8 +150,12 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
               <Zap className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Trigger Management</h2>
-              <p className="text-gray-600">Automate actions based on events and schedules</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Trigger Management
+              </h2>
+              <p className="text-gray-600">
+                Automate actions based on events and schedules
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -169,8 +179,11 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
         <div className="flex-1 overflow-y-auto p-6">
           {data?.triggers && data.triggers.length > 0 ? (
             <div className="space-y-4">
-              {data.triggers.map(trigger => (
-                <div key={trigger.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              {data.triggers.map((trigger) => (
+                <div
+                  key={trigger.id}
+                  className="bg-gray-50 rounded-xl p-6 border border-gray-200"
+                >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4 flex-1">
                       <div className="flex-shrink-0 mt-1">
@@ -181,37 +194,54 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
                           <h3 className="text-lg font-semibold text-gray-900">
                             {trigger.name}
                           </h3>
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                            trigger.enabled 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-gray-100 text-gray-600'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              trigger.enabled
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-600'
+                            }`}
+                          >
                             {trigger.enabled ? 'Active' : 'Disabled'}
                           </span>
                         </div>
-                        <p className="text-gray-600 mb-3">{trigger.description}</p>
-                        
+                        <p className="text-gray-600 mb-3">
+                          {trigger.description}
+                        </p>
+
                         <div className="space-y-2 text-sm">
                           <div>
-                            <span className="font-medium text-gray-700">Condition: </span>
-                            <span className="text-gray-600">{formatTriggerCondition(trigger)}</span>
+                            <span className="font-medium text-gray-700">
+                              Condition:{' '}
+                            </span>
+                            <span className="text-gray-600">
+                              {formatTriggerCondition(trigger)}
+                            </span>
                           </div>
-                          
+
                           <div className="flex items-center space-x-4">
                             <div>
-                              <span className="font-medium text-gray-700">Actions: </span>
+                              <span className="font-medium text-gray-700">
+                                Actions:{' '}
+                              </span>
                               <div className="inline-flex items-center space-x-2">
                                 {trigger.actions.map((action, index) => (
-                                  <div key={action.id} className="flex items-center space-x-1">
+                                  <div
+                                    key={action.id}
+                                    className="flex items-center space-x-1"
+                                  >
                                     {getActionIcon(action.type)}
-                                    <span className="text-gray-600">{action.name}</span>
-                                    {index < trigger.actions.length - 1 && <span className="text-gray-400">→</span>}
+                                    <span className="text-gray-600">
+                                      {action.name}
+                                    </span>
+                                    {index < trigger.actions.length - 1 && (
+                                      <span className="text-gray-400">→</span>
+                                    )}
                                   </div>
                                 ))}
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="flex items-center space-x-4 text-gray-500">
                             <div>
                               <span className="font-medium">Triggered: </span>
@@ -219,13 +249,15 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
                             </div>
                             <div>
                               <span className="font-medium">Last: </span>
-                              <span>{formatLastTriggered(trigger.lastTriggered)}</span>
+                              <span>
+                                {formatLastTriggered(trigger.lastTriggered)}
+                              </span>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center space-x-2 ml-4">
                       <button
                         onClick={() => toggleTrigger(trigger.id)}
@@ -236,7 +268,11 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
                         }`}
                         title={trigger.enabled ? 'Disable' : 'Enable'}
                       >
-                        {trigger.enabled ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                        {trigger.enabled ? (
+                          <Pause className="w-4 h-4" />
+                        ) : (
+                          <Play className="w-4 h-4" />
+                        )}
                       </button>
                       <button
                         onClick={() => setEditingTrigger(trigger)}
@@ -260,9 +296,12 @@ const TriggerManager = ({ onClose }: TriggerManagerProps) => {
           ) : (
             <div className="text-center py-12">
               <Zap className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No triggers configured</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No triggers configured
+              </h3>
               <p className="text-gray-600 mb-6">
-                Create your first trigger to start automating actions based on events or schedules.
+                Create your first trigger to start automating actions based on
+                events or schedules.
               </p>
               <button
                 onClick={() => setShowCreator(true)}

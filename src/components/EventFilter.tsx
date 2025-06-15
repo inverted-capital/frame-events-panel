@@ -7,16 +7,52 @@ interface EventFilterProps {
   onClearAll: () => void
 }
 
-const EventFilter = ({ selectedTypes, onTypeToggle, onClearAll }: EventFilterProps) => {
+const EventFilter = ({
+  selectedTypes,
+  onTypeToggle,
+  onClearAll
+}: EventFilterProps) => {
   const eventTypes: { type: EventType; label: string; color: string }[] = [
-    { type: 'message_received', label: 'Messages', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-    { type: 'thread_started', label: 'New Threads', color: 'bg-green-100 text-green-800 border-green-200' },
-    { type: 'file_altered', label: 'File Changes', color: 'bg-amber-100 text-amber-800 border-amber-200' },
-    { type: 'file_deleted', label: 'File Deletions', color: 'bg-red-100 text-red-800 border-red-200' },
-    { type: 'app_installed', label: 'App Installs', color: 'bg-purple-100 text-purple-800 border-purple-200' },
-    { type: 'contact_request', label: 'Contact Requests', color: 'bg-teal-100 text-teal-800 border-teal-200' },
-    { type: 'email_received', label: 'Emails', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' },
-    { type: 'cron_executed', label: 'Cron Jobs', color: 'bg-gray-100 text-gray-800 border-gray-200' }
+    {
+      type: 'message_received',
+      label: 'Messages',
+      color: 'bg-blue-100 text-blue-800 border-blue-200'
+    },
+    {
+      type: 'thread_started',
+      label: 'New Threads',
+      color: 'bg-green-100 text-green-800 border-green-200'
+    },
+    {
+      type: 'file_altered',
+      label: 'File Changes',
+      color: 'bg-amber-100 text-amber-800 border-amber-200'
+    },
+    {
+      type: 'file_deleted',
+      label: 'File Deletions',
+      color: 'bg-red-100 text-red-800 border-red-200'
+    },
+    {
+      type: 'app_installed',
+      label: 'App Installs',
+      color: 'bg-purple-100 text-purple-800 border-purple-200'
+    },
+    {
+      type: 'contact_request',
+      label: 'Contact Requests',
+      color: 'bg-teal-100 text-teal-800 border-teal-200'
+    },
+    {
+      type: 'email_received',
+      label: 'Emails',
+      color: 'bg-indigo-100 text-indigo-800 border-indigo-200'
+    },
+    {
+      type: 'cron_executed',
+      label: 'Cron Jobs',
+      color: 'bg-gray-100 text-gray-800 border-gray-200'
+    }
   ]
 
   return (
@@ -36,7 +72,7 @@ const EventFilter = ({ selectedTypes, onTypeToggle, onClearAll }: EventFilterPro
           </button>
         )}
       </div>
-      
+
       <div className="flex flex-wrap gap-2">
         {eventTypes.map(({ type, label, color }) => {
           const isSelected = selectedTypes.includes(type)
@@ -45,8 +81,8 @@ const EventFilter = ({ selectedTypes, onTypeToggle, onClearAll }: EventFilterPro
               key={type}
               onClick={() => onTypeToggle(type)}
               className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
-                isSelected 
-                  ? color + ' shadow-sm' 
+                isSelected
+                  ? color + ' shadow-sm'
                   : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
               }`}
             >
@@ -55,7 +91,7 @@ const EventFilter = ({ selectedTypes, onTypeToggle, onClearAll }: EventFilterPro
           )
         })}
       </div>
-      
+
       {selectedTypes.length > 0 && (
         <div className="mt-4 text-sm text-gray-500">
           Showing {selectedTypes.length} of {eventTypes.length} event types

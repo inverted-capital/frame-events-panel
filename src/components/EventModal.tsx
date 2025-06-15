@@ -1,8 +1,8 @@
-import { 
-  MessageCircle, 
-  MessageSquarePlus, 
-  FileEdit, 
-  FileX, 
+import {
+  MessageCircle,
+  MessageSquarePlus,
+  FileEdit,
+  FileX,
   Package,
   Clock,
   User,
@@ -87,7 +87,7 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
   }
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleBackdropClick}
     >
@@ -95,9 +95,7 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-gray-200">
           <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0 mt-1">
-              {getEventIcon()}
-            </div>
+            <div className="flex-shrink-0 mt-1">{getEventIcon()}</div>
             <div>
               <div className="text-sm font-medium text-gray-500 mb-1">
                 {getEventTypeLabel()}
@@ -119,15 +117,17 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
         <div className="p-6 space-y-6">
           {/* Description */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
-            <p className="text-gray-700 leading-relaxed">
-              {event.description}
-            </p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              Description
+            </h3>
+            <p className="text-gray-700 leading-relaxed">{event.description}</p>
           </div>
 
           {/* Timestamp */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Timestamp</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              Timestamp
+            </h3>
             <div className="flex items-center space-x-2 text-gray-600">
               <Calendar className="w-5 h-5" />
               <span>{formatTimestamp(event.timestamp)}</span>
@@ -136,7 +136,9 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
 
           {/* Event ID */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Event ID</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              Event ID
+            </h3>
             <div className="flex items-center space-x-2 text-gray-600 font-mono">
               <Hash className="w-5 h-5" />
               <span>{event.id}</span>
@@ -146,24 +148,34 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
           {/* Metadata */}
           {event.metadata && Object.keys(event.metadata).length > 0 && (
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Details</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Details
+              </h3>
               <div className="bg-gray-50 rounded-xl p-4 space-y-3">
                 {event.metadata.contact && (
                   <div className="flex items-center space-x-3">
                     <User className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Contact:</span>
-                      <span className="ml-2 text-gray-900">{event.metadata.contact}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Contact:
+                      </span>
+                      <span className="ml-2 text-gray-900">
+                        {event.metadata.contact}
+                      </span>
                     </div>
                   </div>
                 )}
-                
+
                 {event.metadata.sender && (
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Sender:</span>
-                      <span className="ml-2 text-gray-900">{event.metadata.sender}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Sender:
+                      </span>
+                      <span className="ml-2 text-gray-900">
+                        {event.metadata.sender}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -172,8 +184,12 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
                   <div className="flex items-start space-x-3">
                     <Hash className="w-5 h-5 text-gray-500 mt-0.5" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Subject:</span>
-                      <span className="ml-2 text-gray-900">{event.metadata.subject}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Subject:
+                      </span>
+                      <span className="ml-2 text-gray-900">
+                        {event.metadata.subject}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -182,8 +198,12 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
                   <div className="flex items-center space-x-3">
                     <MessageCircle className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Thread ID:</span>
-                      <span className="ml-2 text-gray-900 font-mono text-sm">{event.metadata.threadId}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Thread ID:
+                      </span>
+                      <span className="ml-2 text-gray-900 font-mono text-sm">
+                        {event.metadata.threadId}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -192,8 +212,12 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
                   <div className="flex items-center space-x-3">
                     <File className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">File:</span>
-                      <span className="ml-2 text-gray-900 font-mono text-sm">{event.metadata.fileName}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        File:
+                      </span>
+                      <span className="ml-2 text-gray-900 font-mono text-sm">
+                        {event.metadata.fileName}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -202,8 +226,12 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Path:</span>
-                      <span className="ml-2 text-gray-900 font-mono text-sm">{event.metadata.filePath}</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Path:
+                      </span>
+                      <span className="ml-2 text-gray-900 font-mono text-sm">
+                        {event.metadata.filePath}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -212,11 +240,15 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
                   <div className="flex items-center space-x-3">
                     <Package className="w-5 h-5 text-gray-500" />
                     <div>
-                      <span className="text-sm font-medium text-gray-700">Application:</span>
+                      <span className="text-sm font-medium text-gray-700">
+                        Application:
+                      </span>
                       <span className="ml-2 text-gray-900">
                         {event.metadata.appName}
                         {event.metadata.appVersion && (
-                          <span className="text-gray-600 ml-1">({event.metadata.appVersion})</span>
+                          <span className="text-gray-600 ml-1">
+                            ({event.metadata.appVersion})
+                          </span>
                         )}
                       </span>
                     </div>

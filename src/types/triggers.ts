@@ -3,7 +3,7 @@ import { eventTypeSchema } from './events'
 
 export const actionTypeSchema = z.enum([
   'notification',
-  'webhook', 
+  'webhook',
   'email',
   'log',
   'custom'
