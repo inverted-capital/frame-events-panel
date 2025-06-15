@@ -4,6 +4,7 @@ import useEventsData from './hooks/useEventsData'
 import useEventsSaver from './hooks/useEventsSaver'
 import EventCard from './components/EventCard'
 import EventFilter from './components/EventFilter'
+import EventModal from './components/EventModal'
 import type { EventsData, EventType, Event } from './types/events'
 
 const defaultEventsData: EventsData = {
@@ -334,6 +335,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTypes, setSelectedTypes] = useState<EventType[]>([])
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
   useEffect(() => {
     if (error === 'events.json not found') {
@@ -381,6 +383,14 @@ export default function App() {
 
   const handleClearAll = () => {
     setSelectedTypes([])
+  }
+
+  const handleEventClick = (event: Event) => {
+    setSelectedEvent(event)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedEvent(null)
   }
 
   if (loading) {
@@ -448,7 +458,11 @@ export default function App() {
             {filteredEvents.length > 0 ? (
               <div className="space-y-4">
                 {filteredEvents.map(event => (
-                  <EventCard key={event.id} event={event} />
+                  <EventCard 
+                    key={event.id} 
+                    event={event} 
+                    onClick={() => handleEventClick(event)}
+                  />
                 ))}
               </div>
             ) : (
@@ -466,6 +480,12 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* Event Details Modal */}
+      <EventModal 
+        event={selectedEvent} 
+        onClose={handleCloseModal} 
+      />
     </div>
   )
 }

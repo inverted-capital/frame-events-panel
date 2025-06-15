@@ -14,9 +14,10 @@ import type { Event } from '../types/events'
 
 interface EventCardProps {
   event: Event
+  onClick?: () => void
 }
 
-const EventCard = ({ event }: EventCardProps) => {
+const EventCard = ({ event, onClick }: EventCardProps) => {
   const getEventIcon = () => {
     switch (event.type) {
       case 'message_received':
@@ -70,7 +71,10 @@ const EventCard = ({ event }: EventCardProps) => {
   }
 
   return (
-    <div className={`border-l-4 ${getEventColor()} rounded-r-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100`}>
+    <div 
+      className={`border-l-4 ${getEventColor()} rounded-r-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 cursor-pointer hover:scale-[1.01]`}
+      onClick={onClick}
+    >
       <div className="flex items-start justify-between">
         <div className="flex items-start space-x-4 flex-1">
           <div className="flex-shrink-0 mt-1">
