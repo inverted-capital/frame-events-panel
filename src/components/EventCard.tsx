@@ -1,8 +1,8 @@
-import { 
-  MessageCircle, 
-  MessageSquarePlus, 
-  FileEdit, 
-  FileX, 
+import {
+  MessageCircle,
+  MessageSquarePlus,
+  FileEdit,
+  FileX,
   Package,
   Clock,
   User,
@@ -76,15 +76,13 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
   }
 
   return (
-    <div 
+    <div
       className={`border-l-4 ${getEventColor()} rounded-r-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 cursor-pointer hover:scale-[1.01]`}
       onClick={onClick}
     >
       <div className="flex items-start justify-between">
         <div className="flex items-start space-x-4 flex-1">
-          <div className="flex-shrink-0 mt-1">
-            {getEventIcon()}
-          </div>
+          <div className="flex-shrink-0 mt-1">{getEventIcon()}</div>
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-semibold text-gray-900 mb-1">
               {event.title}
@@ -92,7 +90,7 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
             <p className="text-gray-600 mb-3 leading-relaxed">
               {event.description}
             </p>
-            
+
             {event.metadata && (
               <div className="flex flex-wrap gap-3 text-sm text-gray-500">
                 {event.metadata.contact && (
@@ -122,7 +120,9 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
                 {event.metadata.appName && (
                   <div className="flex items-center space-x-1">
                     <Package className="w-4 h-4" />
-                    <span>{event.metadata.appName} {event.metadata.appVersion}</span>
+                    <span>
+                      {event.metadata.appName} {event.metadata.appVersion}
+                    </span>
                   </div>
                 )}
                 {event.metadata.triggerName && (

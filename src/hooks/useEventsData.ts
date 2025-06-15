@@ -7,7 +7,7 @@ const useEventsData = () => {
   const exists = useExists('events.json')
   const raw = useJson('events.json')
   const [data, setData] = useState<EventsData>()
-  const dataRef = useRef<EventsData>()
+  const dataRef = useRef<EventsData | undefined>(undefined)
 
   useEffect(() => {
     if (raw !== undefined) {

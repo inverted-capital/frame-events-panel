@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const eventTypeSchema = z.enum([
   'message_received',
-  'thread_started', 
+  'thread_started',
   'file_altered',
   'file_deleted',
   'app_installed',
@@ -17,19 +17,21 @@ export const eventSchema = z.object({
   title: z.string(),
   description: z.string(),
   timestamp: z.string(),
-  metadata: z.object({
-    contact: z.string().optional(),
-    threadId: z.string().optional(),
-    fileName: z.string().optional(),
-    filePath: z.string().optional(),
-    appName: z.string().optional(),
-    appVersion: z.string().optional(),
-    sender: z.string().optional(),
-    subject: z.string().optional(),
-    cronExpression: z.string().optional(),
-    executionTime: z.string().optional(),
-    triggerName: z.string().optional()
-  }).optional()
+  metadata: z
+    .object({
+      contact: z.string().optional(),
+      threadId: z.string().optional(),
+      fileName: z.string().optional(),
+      filePath: z.string().optional(),
+      appName: z.string().optional(),
+      appVersion: z.string().optional(),
+      sender: z.string().optional(),
+      subject: z.string().optional(),
+      cronExpression: z.string().optional(),
+      executionTime: z.string().optional(),
+      triggerName: z.string().optional()
+    })
+    .optional()
 })
 
 export const eventsDataSchema = z.object({

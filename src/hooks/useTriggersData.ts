@@ -7,7 +7,7 @@ const useTriggersData = () => {
   const exists = useExists('triggers.json')
   const raw = useJson('triggers.json')
   const [data, setData] = useState<TriggersData>()
-  const dataRef = useRef<TriggersData>()
+  const dataRef = useRef<TriggersData | undefined>(undefined)
 
   useEffect(() => {
     if (raw !== undefined) {

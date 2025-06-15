@@ -17,7 +17,8 @@ const defaultEventsData: EventsData = {
       id: '1',
       type: 'message_received',
       title: 'New message from Sarah Chen',
-      description: 'Hey! Just wanted to follow up on the project timeline we discussed. Can we sync up tomorrow?',
+      description:
+        'Hey! Just wanted to follow up on the project timeline we discussed. Can we sync up tomorrow?',
       timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
       metadata: {
         contact: 'Sarah Chen',
@@ -28,7 +29,8 @@ const defaultEventsData: EventsData = {
       id: '2',
       type: 'thread_started',
       title: 'New conversation with Alex Rodriguez',
-      description: 'Alex Rodriguez started a new conversation about the upcoming product launch.',
+      description:
+        'Alex Rodriguez started a new conversation about the upcoming product launch.',
       timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
       metadata: {
         contact: 'Alex Rodriguez',
@@ -39,7 +41,8 @@ const defaultEventsData: EventsData = {
       id: '3',
       type: 'file_altered',
       title: 'Document updated',
-      description: 'The file "project-proposal.docx" has been modified with new content and formatting changes.',
+      description:
+        'The file "project-proposal.docx" has been modified with new content and formatting changes.',
       timestamp: new Date(Date.now() - 1000 * 60 * 90).toISOString(),
       metadata: {
         fileName: 'project-proposal.docx',
@@ -50,7 +53,8 @@ const defaultEventsData: EventsData = {
       id: '4',
       type: 'app_installed',
       title: 'New application installed',
-      description: 'Successfully installed Design Studio Pro with enhanced collaboration features.',
+      description:
+        'Successfully installed Design Studio Pro with enhanced collaboration features.',
       timestamp: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
       metadata: {
         appName: 'Design Studio Pro',
@@ -61,7 +65,8 @@ const defaultEventsData: EventsData = {
       id: '5',
       type: 'file_deleted',
       title: 'File removed',
-      description: 'The temporary file "temp_backup.zip" has been permanently deleted from the system.',
+      description:
+        'The temporary file "temp_backup.zip" has been permanently deleted from the system.',
       timestamp: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
       metadata: {
         fileName: 'temp_backup.zip',
@@ -72,7 +77,8 @@ const defaultEventsData: EventsData = {
       id: '6',
       type: 'message_received',
       title: 'New message from Marcus Kim',
-      description: 'Thanks for the feedback on the designs. I\'ve made the requested changes and updated the files.',
+      description:
+        "Thanks for the feedback on the designs. I've made the requested changes and updated the files.",
       timestamp: new Date(Date.now() - 1000 * 60 * 240).toISOString(),
       metadata: {
         contact: 'Marcus Kim',
@@ -83,7 +89,8 @@ const defaultEventsData: EventsData = {
       id: '7',
       type: 'thread_started',
       title: 'New conversation with Emma Johnson',
-      description: 'Emma Johnson initiated a discussion about the Q4 marketing strategy and budget allocation.',
+      description:
+        'Emma Johnson initiated a discussion about the Q4 marketing strategy and budget allocation.',
       timestamp: new Date(Date.now() - 1000 * 60 * 300).toISOString(),
       metadata: {
         contact: 'Emma Johnson',
@@ -94,7 +101,8 @@ const defaultEventsData: EventsData = {
       id: '8',
       type: 'file_altered',
       title: 'Spreadsheet updated',
-      description: 'The budget analysis spreadsheet has been updated with new quarterly projections and formulas.',
+      description:
+        'The budget analysis spreadsheet has been updated with new quarterly projections and formulas.',
       timestamp: new Date(Date.now() - 1000 * 60 * 360).toISOString(),
       metadata: {
         fileName: 'budget-analysis-q4.xlsx',
@@ -105,7 +113,8 @@ const defaultEventsData: EventsData = {
       id: '9',
       type: 'message_received',
       title: 'New message from David Park',
-      description: 'Can we schedule a code review for the authentication module? I have some concerns about the security implementation.',
+      description:
+        'Can we schedule a code review for the authentication module? I have some concerns about the security implementation.',
       timestamp: new Date(Date.now() - 1000 * 60 * 420).toISOString(),
       metadata: {
         contact: 'David Park',
@@ -116,7 +125,8 @@ const defaultEventsData: EventsData = {
       id: '10',
       type: 'app_installed',
       title: 'Security scanner installed',
-      description: 'CodeScan Security Pro has been installed to monitor code vulnerabilities and compliance.',
+      description:
+        'CodeScan Security Pro has been installed to monitor code vulnerabilities and compliance.',
       timestamp: new Date(Date.now() - 1000 * 60 * 480).toISOString(),
       metadata: {
         appName: 'CodeScan Security Pro',
@@ -127,7 +137,8 @@ const defaultEventsData: EventsData = {
       id: '11',
       type: 'file_deleted',
       title: 'Old logs removed',
-      description: 'Outdated log files from previous deployments have been cleaned up to free disk space.',
+      description:
+        'Outdated log files from previous deployments have been cleaned up to free disk space.',
       timestamp: new Date(Date.now() - 1000 * 60 * 540).toISOString(),
       metadata: {
         fileName: 'deployment-logs-2024-01.tar.gz',
@@ -138,7 +149,8 @@ const defaultEventsData: EventsData = {
       id: '12',
       type: 'thread_started',
       title: 'New conversation with Lisa Thompson',
-      description: 'Lisa Thompson started a discussion about the new user interface designs and accessibility requirements.',
+      description:
+        'Lisa Thompson started a discussion about the new user interface designs and accessibility requirements.',
       timestamp: new Date(Date.now() - 1000 * 60 * 600).toISOString(),
       metadata: {
         contact: 'Lisa Thompson',
@@ -149,7 +161,8 @@ const defaultEventsData: EventsData = {
       id: '13',
       type: 'message_received',
       title: 'New message from James Wilson',
-      description: 'The database migration completed successfully. All tables have been updated with the new schema.',
+      description:
+        'The database migration completed successfully. All tables have been updated with the new schema.',
       timestamp: new Date(Date.now() - 1000 * 60 * 660).toISOString(),
       metadata: {
         contact: 'James Wilson',
@@ -160,7 +173,8 @@ const defaultEventsData: EventsData = {
       id: '14',
       type: 'file_altered',
       title: 'Configuration updated',
-      description: 'Application configuration file has been modified to include new API endpoints and feature flags.',
+      description:
+        'Application configuration file has been modified to include new API endpoints and feature flags.',
       timestamp: new Date(Date.now() - 1000 * 60 * 720).toISOString(),
       metadata: {
         fileName: 'app-config.json',
@@ -171,7 +185,8 @@ const defaultEventsData: EventsData = {
       id: '15',
       type: 'app_installed',
       title: 'Analytics platform installed',
-      description: 'DataViz Analytics Suite has been installed to provide comprehensive business intelligence dashboards.',
+      description:
+        'DataViz Analytics Suite has been installed to provide comprehensive business intelligence dashboards.',
       timestamp: new Date(Date.now() - 1000 * 60 * 780).toISOString(),
       metadata: {
         appName: 'DataViz Analytics Suite',
@@ -182,7 +197,8 @@ const defaultEventsData: EventsData = {
       id: '16',
       type: 'message_received',
       title: 'New message from Rachel Green',
-      description: 'The client meeting went well! They approved the mockups and want to move forward with development.',
+      description:
+        'The client meeting went well! They approved the mockups and want to move forward with development.',
       timestamp: new Date(Date.now() - 1000 * 60 * 840).toISOString(),
       metadata: {
         contact: 'Rachel Green',
@@ -193,7 +209,8 @@ const defaultEventsData: EventsData = {
       id: '17',
       type: 'file_deleted',
       title: 'Duplicate files removed',
-      description: 'Removed duplicate image assets that were consuming unnecessary storage space.',
+      description:
+        'Removed duplicate image assets that were consuming unnecessary storage space.',
       timestamp: new Date(Date.now() - 1000 * 60 * 900).toISOString(),
       metadata: {
         fileName: 'hero-banner-copy.png',
@@ -204,7 +221,8 @@ const defaultEventsData: EventsData = {
       id: '18',
       type: 'thread_started',
       title: 'New conversation with Michael Brown',
-      description: 'Michael Brown initiated a discussion about implementing automated testing for the mobile application.',
+      description:
+        'Michael Brown initiated a discussion about implementing automated testing for the mobile application.',
       timestamp: new Date(Date.now() - 1000 * 60 * 960).toISOString(),
       metadata: {
         contact: 'Michael Brown',
@@ -215,7 +233,8 @@ const defaultEventsData: EventsData = {
       id: '19',
       type: 'file_altered',
       title: 'API documentation updated',
-      description: 'REST API documentation has been updated with new endpoints and improved examples.',
+      description:
+        'REST API documentation has been updated with new endpoints and improved examples.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1020).toISOString(),
       metadata: {
         fileName: 'api-docs.md',
@@ -226,7 +245,8 @@ const defaultEventsData: EventsData = {
       id: '20',
       type: 'message_received',
       title: 'New message from Anna Davis',
-      description: 'I\'ve finished the user research analysis. The findings are quite interesting and will impact our roadmap.',
+      description:
+        "I've finished the user research analysis. The findings are quite interesting and will impact our roadmap.",
       timestamp: new Date(Date.now() - 1000 * 60 * 1080).toISOString(),
       metadata: {
         contact: 'Anna Davis',
@@ -237,7 +257,8 @@ const defaultEventsData: EventsData = {
       id: '21',
       type: 'app_installed',
       title: 'Project management tool installed',
-      description: 'TaskFlow Pro has been installed to streamline project management and team collaboration.',
+      description:
+        'TaskFlow Pro has been installed to streamline project management and team collaboration.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1140).toISOString(),
       metadata: {
         appName: 'TaskFlow Pro',
@@ -248,7 +269,8 @@ const defaultEventsData: EventsData = {
       id: '22',
       type: 'file_deleted',
       title: 'Test data cleaned up',
-      description: 'Removed test database files and mock data that are no longer needed for development.',
+      description:
+        'Removed test database files and mock data that are no longer needed for development.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1200).toISOString(),
       metadata: {
         fileName: 'test-data.sql',
@@ -259,7 +281,8 @@ const defaultEventsData: EventsData = {
       id: '23',
       type: 'message_received',
       title: 'New message from Tom Martinez',
-      description: 'The performance optimization is complete. Page load times have improved by 40% across all devices.',
+      description:
+        'The performance optimization is complete. Page load times have improved by 40% across all devices.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1260).toISOString(),
       metadata: {
         contact: 'Tom Martinez',
@@ -270,7 +293,8 @@ const defaultEventsData: EventsData = {
       id: '24',
       type: 'thread_started',
       title: 'New conversation with Sophie Clark',
-      description: 'Sophie Clark started a discussion about the upcoming product demo and presentation materials.',
+      description:
+        'Sophie Clark started a discussion about the upcoming product demo and presentation materials.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1320).toISOString(),
       metadata: {
         contact: 'Sophie Clark',
@@ -281,7 +305,8 @@ const defaultEventsData: EventsData = {
       id: '25',
       type: 'file_altered',
       title: 'User guide updated',
-      description: 'The user manual has been revised with new screenshots and step-by-step tutorials.',
+      description:
+        'The user manual has been revised with new screenshots and step-by-step tutorials.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1380).toISOString(),
       metadata: {
         fileName: 'user-guide.pdf',
@@ -292,7 +317,8 @@ const defaultEventsData: EventsData = {
       id: '26',
       type: 'contact_request',
       title: 'New contact request from Jennifer Martinez',
-      description: 'Jennifer Martinez would like to connect with you. She is a UX Designer at TechFlow Inc.',
+      description:
+        'Jennifer Martinez would like to connect with you. She is a UX Designer at TechFlow Inc.',
       timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
       metadata: {
         contact: 'Jennifer Martinez'
@@ -302,7 +328,8 @@ const defaultEventsData: EventsData = {
       id: '27',
       type: 'email_received',
       title: 'New email from project-updates@company.com',
-      description: 'Weekly project status update with progress reports from all active development teams.',
+      description:
+        'Weekly project status update with progress reports from all active development teams.',
       timestamp: new Date(Date.now() - 1000 * 60 * 75).toISOString(),
       metadata: {
         sender: 'project-updates@company.com',
@@ -313,7 +340,8 @@ const defaultEventsData: EventsData = {
       id: '28',
       type: 'contact_request',
       title: 'New contact request from Ryan Thompson',
-      description: 'Ryan Thompson from Digital Solutions wants to connect. He mentioned your work on the mobile app project.',
+      description:
+        'Ryan Thompson from Digital Solutions wants to connect. He mentioned your work on the mobile app project.',
       timestamp: new Date(Date.now() - 1000 * 60 * 450).toISOString(),
       metadata: {
         contact: 'Ryan Thompson'
@@ -323,7 +351,8 @@ const defaultEventsData: EventsData = {
       id: '29',
       type: 'email_received',
       title: 'New email from sarah.chen@client.com',
-      description: 'Client feedback on the latest design mockups with detailed comments and requested revisions.',
+      description:
+        'Client feedback on the latest design mockups with detailed comments and requested revisions.',
       timestamp: new Date(Date.now() - 1000 * 60 * 1440).toISOString(),
       metadata: {
         sender: 'sarah.chen@client.com',
@@ -334,7 +363,8 @@ const defaultEventsData: EventsData = {
       id: '30',
       type: 'cron_executed',
       title: 'Daily backup completed',
-      description: 'Automated daily backup of user data and system configurations completed successfully.',
+      description:
+        'Automated daily backup of user data and system configurations completed successfully.',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
       metadata: {
         cronExpression: '0 2 * * *',
@@ -346,7 +376,8 @@ const defaultEventsData: EventsData = {
       id: '31',
       type: 'cron_executed',
       title: 'Weekly report generated',
-      description: 'System performance and usage statistics report has been generated and sent to administrators.',
+      description:
+        'System performance and usage statistics report has been generated and sent to administrators.',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
       metadata: {
         cronExpression: '0 0 * * 1',
@@ -376,7 +407,8 @@ const defaultTriggersData: TriggersData = {
           name: 'Desktop Notification',
           description: 'Show desktop notification',
           config: {
-            message: 'Priority message from {{event.metadata.contact}}: {{event.title}}'
+            message:
+              'Priority message from {{event.metadata.contact}}: {{event.title}}'
           }
         },
         {
@@ -490,35 +522,39 @@ export default function App() {
 
       // Filter by selected types
       if (selectedTypes.length > 0) {
-        filtered = filtered.filter(event => selectedTypes.includes(event.type as EventType))
+        filtered = filtered.filter((event) =>
+          selectedTypes.includes(event.type as EventType)
+        )
       }
 
       // Filter by search query
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase()
-        filtered = filtered.filter(event => 
-          event.title.toLowerCase().includes(query) ||
-          event.description.toLowerCase().includes(query) ||
-          event.metadata?.contact?.toLowerCase().includes(query) ||
-          event.metadata?.fileName?.toLowerCase().includes(query) ||
-          event.metadata?.appName?.toLowerCase().includes(query) ||
-          event.metadata?.sender?.toLowerCase().includes(query) ||
-          event.metadata?.subject?.toLowerCase().includes(query)
+        filtered = filtered.filter(
+          (event) =>
+            event.title.toLowerCase().includes(query) ||
+            event.description.toLowerCase().includes(query) ||
+            event.metadata?.contact?.toLowerCase().includes(query) ||
+            event.metadata?.fileName?.toLowerCase().includes(query) ||
+            event.metadata?.appName?.toLowerCase().includes(query) ||
+            event.metadata?.sender?.toLowerCase().includes(query) ||
+            event.metadata?.subject?.toLowerCase().includes(query)
         )
       }
 
       // Sort by timestamp (most recent first)
-      filtered.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      filtered.sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      )
 
       setFilteredEvents(filtered)
     }
   }, [data, selectedTypes, searchQuery])
 
   const handleTypeToggle = (type: EventType) => {
-    setSelectedTypes(prev => 
-      prev.includes(type) 
-        ? prev.filter(t => t !== type)
-        : [...prev, type]
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     )
   }
 
@@ -556,16 +592,20 @@ export default function App() {
                 <Activity className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Activity Dashboard</h1>
-                <p className="text-gray-600">Track and manage all your important events</p>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Activity Dashboard
+                </h1>
+                <p className="text-gray-600">
+                  Track and manage all your important events
+                </p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               <div className="text-right">
                 <div className="text-sm text-gray-500">Active Triggers</div>
                 <div className="text-2xl font-bold text-blue-600">
-                  {triggersData?.triggers.filter(t => t.enabled).length || 0}
+                  {triggersData?.triggers.filter((t) => t.enabled).length || 0}
                 </div>
               </div>
               <button
@@ -577,7 +617,7 @@ export default function App() {
               </button>
             </div>
           </div>
-          
+
           {/* Search Bar */}
           <div className="relative max-w-md">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -595,7 +635,7 @@ export default function App() {
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
             <div className="sticky top-8">
-              <EventFilter 
+              <EventFilter
                 selectedTypes={selectedTypes}
                 onTypeToggle={handleTypeToggle}
                 onClearAll={handleClearAll}
@@ -616,10 +656,10 @@ export default function App() {
 
             {filteredEvents.length > 0 ? (
               <div className="space-y-4">
-                {filteredEvents.map(event => (
-                  <EventCard 
-                    key={event.id} 
-                    event={event} 
+                {filteredEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
                     onClick={() => handleEventClick(event)}
                   />
                 ))}
@@ -627,12 +667,13 @@ export default function App() {
             ) : (
               <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
                 <Activity className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No events found</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No events found
+                </h3>
                 <p className="text-gray-600">
-                  {searchQuery || selectedTypes.length > 0 
+                  {searchQuery || selectedTypes.length > 0
                     ? 'Try adjusting your filters or search query'
-                    : 'No events have been recorded yet'
-                  }
+                    : 'No events have been recorded yet'}
                 </p>
               </div>
             )}
@@ -641,10 +682,7 @@ export default function App() {
       </div>
 
       {/* Event Details Modal */}
-      <EventModal 
-        event={selectedEvent} 
-        onClose={handleCloseModal} 
-      />
+      <EventModal event={selectedEvent} onClose={handleCloseModal} />
 
       {/* Trigger Manager */}
       {showTriggerManager && (

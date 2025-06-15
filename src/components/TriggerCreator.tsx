@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react'
-import { 
-  Plus, 
-  X, 
-  Filter, 
-  Clock, 
-  Bell, 
-  Webhook, 
-  Mail, 
-  FileText, 
+import {
+  Plus,
+  X,
+  Filter,
+  Clock,
+  Bell,
+  Webhook,
+  Mail,
+  FileText,
   Settings,
   Save,
   AlertCircle
 } from 'lucide-react'
 import useTriggersData from '../hooks/useTriggersData'
 import useTriggersSaver from '../hooks/useTriggersSaver'
-import type { Trigger, Action, TriggerCondition, EventTrigger, TimerTrigger } from '../types/triggers'
+import type {
+  Trigger,
+  Action,
+  TriggerCondition,
+  EventTrigger,
+  TimerTrigger,
+  ActionType
+} from '../types/triggers'
 import type { EventType } from '../types/events'
 
 interface TriggerCreatorProps {
@@ -23,31 +30,35 @@ interface TriggerCreatorProps {
   editingTrigger?: Trigger | null
 }
 
-const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProps) => {
+const TriggerCreator = ({
+  onClose,
+  onSaved,
+  editingTrigger
+}: TriggerCreatorProps) => {
   const { data } = useTriggersData()
   const save = useTriggersSaver()
-  
+
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [enabled, setEnabled] = useState(true)
   const [triggerType, setTriggerType] = useState<'event' | 'timer'>('event')
-  
+
   // Event trigger fields
   const [eventType, setEventType] = useState<EventType | ''>('')
   const [titleContains, setTitleContains] = useState('')
   const [descriptionContains, setDescriptionContains] = useState('')
   const [contactEquals, setContactEquals] = useState('')
-  
+
   // Timer trigger fields
   const [cronExpression, setCronExpression] = useState('0 0 * * *')
   const [cronDescription, setCronDescription] = useState('Daily at midnight')
-  
+
   // Actions
   const [actions, setActions] = useState<Action[]>([])
   const [showActionForm, setShowActionForm] = useState(false)
-  
+
   // Action form fields
-  const [actionType, setActionType] = useState<'notification' | 'webhook' | 'email' | 'log' | 'custom'>('notification')
+  const [actionType, setActionType] = useState<ActionType>('notification')
   const [actionName, setActionName] = useState('')
   const [actionDescription, setActionDescription] = useState('')
   const [actionConfig, setActionConfig] = useState<Record<string, string>>({})
@@ -59,7 +70,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
       setEnabled(editingTrigger.enabled)
       setTriggerType(editingTrigger.condition.type)
       setActions(editingTrigger.actions)
-      
+
       if (editingTrigger.condition.type === 'event') {
         const condition = editingTrigger.condition as EventTrigger
         setEventType(condition.eventType || '')
@@ -94,16 +105,41 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
   ]
 
   const actionTypes = [
-    { value: 'notification' as const, label: 'Notification', icon: Bell, color: 'text-blue-500' },
-    { value: 'webhook' as const, label: 'Webhook', icon: Webhook, color: 'text-green-500' },
-    { value: 'email' as const, label: 'Email', icon: Mail, color: 'text-purple-500' },
-    { value: 'log' as const, label: 'Log Entry', icon: FileText, color: 'text-gray-500' },
-    { value: 'custom' as const, label: 'Custom Script', icon: Settings, color: 'text-orange-500' }
+    {
+      value: 'notification' as const,
+      label: 'Notification',
+      icon: Bell,
+      color: 'text-blue-500'
+    },
+    {
+      value: 'webhook' as const,
+      label: 'Webhook',
+      icon: Webhook,
+      color: 'text-green-500'
+    },
+    {
+      value: 'email' as const,
+      label: 'Email',
+      icon: Mail,
+      color: 'text-purple-500'
+    },
+    {
+      value: 'log' as const,
+      label: 'Log Entry',
+      icon: FileText,
+      color: 'text-gray-500'
+    },
+    {
+      value: 'custom' as const,
+      label: 'Custom Script',
+      icon: Settings,
+      color: 'text-orange-500'
+    }
   ]
 
   const addAction = () => {
     if (!actionName.trim()) return
-    
+
     const newAction: Action = {
       id: `action_${Date.now()}`,
       type: actionType,
@@ -111,7 +147,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
       description: actionDescription,
       config: actionConfig
     }
-    
+
     setActions([...actions, newAction])
     setActionName('')
     setActionDescription('')
@@ -120,14 +156,14 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
   }
 
   const removeAction = (actionId: string) => {
-    setActions(actions.filter(action => action.id !== actionId))
+    setActions(actions.filter((action) => action.id !== actionId))
   }
 
   const handleSave = async () => {
     if (!name.trim() || actions.length === 0) return
 
     let condition: TriggerCondition
-    
+
     if (triggerType === 'event') {
       condition = {
         type: 'event',
@@ -158,7 +194,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
 
     const currentTriggers = data?.triggers || []
     const updatedTriggers = editingTrigger
-      ? currentTriggers.map(t => t.id === editingTrigger.id ? trigger : t)
+      ? currentTriggers.map((t) => (t.id === editingTrigger.id ? trigger : t))
       : [...currentTriggers, trigger]
 
     await save({ triggers: updatedTriggers })
@@ -166,7 +202,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
   }
 
   const getActionIcon = (actionType: string) => {
-    const actionDef = actionTypes.find(t => t.value === actionType)
+    const actionDef = actionTypes.find((t) => t.value === actionType)
     if (!actionDef) return <Settings className="w-4 h-4 text-gray-500" />
     const Icon = actionDef.icon
     return <Icon className={`w-4 h-4 ${actionDef.color}`} />
@@ -184,7 +220,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
               <input
                 type="url"
                 value={actionConfig.url || ''}
-                onChange={(e) => setActionConfig({...actionConfig, url: e.target.value})}
+                onChange={(e) =>
+                  setActionConfig({ ...actionConfig, url: e.target.value })
+                }
                 placeholder="https://example.com/webhook"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -195,7 +233,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
               </label>
               <select
                 value={actionConfig.method || 'POST'}
-                onChange={(e) => setActionConfig({...actionConfig, method: e.target.value})}
+                onChange={(e) =>
+                  setActionConfig({ ...actionConfig, method: e.target.value })
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="POST">POST</option>
@@ -216,7 +256,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
               <input
                 type="email"
                 value={actionConfig.to || ''}
-                onChange={(e) => setActionConfig({...actionConfig, to: e.target.value})}
+                onChange={(e) =>
+                  setActionConfig({ ...actionConfig, to: e.target.value })
+                }
                 placeholder="user@example.com"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -228,7 +270,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
               <input
                 type="text"
                 value={actionConfig.subject || ''}
-                onChange={(e) => setActionConfig({...actionConfig, subject: e.target.value})}
+                onChange={(e) =>
+                  setActionConfig({ ...actionConfig, subject: e.target.value })
+                }
                 placeholder="Alert: {{event.title}}"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -243,7 +287,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
             </label>
             <textarea
               value={actionConfig.message || ''}
-              onChange={(e) => setActionConfig({...actionConfig, message: e.target.value})}
+              onChange={(e) =>
+                setActionConfig({ ...actionConfig, message: e.target.value })
+              }
               placeholder="New event: {{event.title}}"
               rows={3}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -258,7 +304,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
             </label>
             <textarea
               value={actionConfig.script || ''}
-              onChange={(e) => setActionConfig({...actionConfig, script: e.target.value})}
+              onChange={(e) =>
+                setActionConfig({ ...actionConfig, script: e.target.value })
+              }
               placeholder="console.log('Event triggered:', event);"
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
@@ -290,7 +338,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Basic Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Basic Information
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -312,7 +362,10 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                   onChange={(e) => setEnabled(e.target.checked)}
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <label htmlFor="enabled" className="text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="enabled"
+                  className="text-sm font-medium text-gray-700"
+                >
                   Enable trigger immediately
                 </label>
               </div>
@@ -333,7 +386,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
 
           {/* Trigger Type */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Trigger Condition</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Trigger Condition
+            </h3>
             <div className="flex space-x-4">
               <button
                 onClick={() => setTriggerType('event')}
@@ -362,7 +417,8 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
             {triggerType === 'event' ? (
               <div className="space-y-4 p-4 bg-blue-50 rounded-xl">
                 <p className="text-sm text-blue-700">
-                  This trigger will fire when an event matches the specified conditions.
+                  This trigger will fire when an event matches the specified
+                  conditions.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -371,11 +427,13 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                     </label>
                     <select
                       value={eventType}
-                      onChange={(e) => setEventType(e.target.value as EventType | '')}
+                      onChange={(e) =>
+                        setEventType(e.target.value as EventType | '')
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Any event type</option>
-                      {eventTypes.map(type => (
+                      {eventTypes.map((type) => (
                         <option key={type.value} value={type.value}>
                           {type.label}
                         </option>
@@ -423,7 +481,8 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
             ) : (
               <div className="space-y-4 p-4 bg-green-50 rounded-xl">
                 <p className="text-sm text-green-700">
-                  This trigger will fire on a schedule based on the cron expression.
+                  This trigger will fire on a schedule based on the cron
+                  expression.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -456,7 +515,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                     Quick Presets
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {cronPresets.map(preset => (
+                    {cronPresets.map((preset) => (
                       <button
                         key={preset.expression}
                         onClick={() => {
@@ -489,13 +548,18 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
 
             {actions.length > 0 ? (
               <div className="space-y-3">
-                {actions.map((action, index) => (
-                  <div key={action.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                {actions.map((action) => (
+                  <div
+                    key={action.id}
+                    className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg"
+                  >
                     <div className="flex items-center space-x-2 flex-1">
                       {getActionIcon(action.type)}
                       <span className="font-medium">{action.name}</span>
                       {action.description && (
-                        <span className="text-gray-500 text-sm">- {action.description}</span>
+                        <span className="text-gray-500 text-sm">
+                          - {action.description}
+                        </span>
                       )}
                     </div>
                     <button
@@ -511,7 +575,9 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
               <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
                 <AlertCircle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
                 <p className="text-gray-600">No actions configured</p>
-                <p className="text-gray-500 text-sm">Add at least one action to continue</p>
+                <p className="text-gray-500 text-sm">
+                  Add at least one action to continue
+                </p>
               </div>
             )}
 
@@ -527,7 +593,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                     <X className="w-4 h-4" />
                   </button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -535,10 +601,12 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                     </label>
                     <select
                       value={actionType}
-                      onChange={(e) => setActionType(e.target.value as any)}
+                      onChange={(e) =>
+                        setActionType(e.target.value as ActionType)
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
-                      {actionTypes.map(type => (
+                      {actionTypes.map((type) => (
                         <option key={type.value} value={type.value}>
                           {type.label}
                         </option>
@@ -558,7 +626,7 @@ const TriggerCreator = ({ onClose, onSaved, editingTrigger }: TriggerCreatorProp
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Description (optional)
