@@ -1,6 +1,7 @@
 import { useExists, useJson } from '@artifact/client/hooks'
 import { eventsDataSchema, type EventsData } from '../types/events.ts'
 import { useEffect, useState } from 'react'
+import isEqual from 'fast-deep-equal'
 
 const useEventsData = () => {
   const exists = useExists('events.json')
@@ -9,9 +10,13 @@ const useEventsData = () => {
 
   useEffect(() => {
     if (raw !== undefined) {
-      setData(eventsDataSchema.parse(raw))
+      const parsedData = eventsDataSchema.parse(raw)
+      // Only update state if the parsed data is actually different
+      if (!isEqual(data, parsedData)) {
+        setData(parsedData)
+      }
     }
-  }, [raw])
+  }, [raw, data])
 
   const loading = exists === null || (exists && raw === undefined)
   const error = exists === false ? 'events.json not found' : null
