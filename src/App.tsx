@@ -73,6 +73,215 @@ const defaultEventsData: EventsData = {
         contact: 'Marcus Kim',
         threadId: 'thread_ghi789'
       }
+    },
+    {
+      id: '7',
+      type: 'thread_started',
+      title: 'New conversation with Emma Johnson',
+      description: 'Emma Johnson initiated a discussion about the Q4 marketing strategy and budget allocation.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 300).toISOString(),
+      metadata: {
+        contact: 'Emma Johnson',
+        threadId: 'thread_jkl012'
+      }
+    },
+    {
+      id: '8',
+      type: 'file_altered',
+      title: 'Spreadsheet updated',
+      description: 'The budget analysis spreadsheet has been updated with new quarterly projections and formulas.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 360).toISOString(),
+      metadata: {
+        fileName: 'budget-analysis-q4.xlsx',
+        filePath: '/finance/reports/'
+      }
+    },
+    {
+      id: '9',
+      type: 'message_received',
+      title: 'New message from David Park',
+      description: 'Can we schedule a code review for the authentication module? I have some concerns about the security implementation.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 420).toISOString(),
+      metadata: {
+        contact: 'David Park',
+        threadId: 'thread_mno345'
+      }
+    },
+    {
+      id: '10',
+      type: 'app_installed',
+      title: 'Security scanner installed',
+      description: 'CodeScan Security Pro has been installed to monitor code vulnerabilities and compliance.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 480).toISOString(),
+      metadata: {
+        appName: 'CodeScan Security Pro',
+        appVersion: 'v3.1.0'
+      }
+    },
+    {
+      id: '11',
+      type: 'file_deleted',
+      title: 'Old logs removed',
+      description: 'Outdated log files from previous deployments have been cleaned up to free disk space.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 540).toISOString(),
+      metadata: {
+        fileName: 'deployment-logs-2024-01.tar.gz',
+        filePath: '/logs/archive/'
+      }
+    },
+    {
+      id: '12',
+      type: 'thread_started',
+      title: 'New conversation with Lisa Thompson',
+      description: 'Lisa Thompson started a discussion about the new user interface designs and accessibility requirements.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 600).toISOString(),
+      metadata: {
+        contact: 'Lisa Thompson',
+        threadId: 'thread_pqr678'
+      }
+    },
+    {
+      id: '13',
+      type: 'message_received',
+      title: 'New message from James Wilson',
+      description: 'The database migration completed successfully. All tables have been updated with the new schema.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 660).toISOString(),
+      metadata: {
+        contact: 'James Wilson',
+        threadId: 'thread_stu901'
+      }
+    },
+    {
+      id: '14',
+      type: 'file_altered',
+      title: 'Configuration updated',
+      description: 'Application configuration file has been modified to include new API endpoints and feature flags.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 720).toISOString(),
+      metadata: {
+        fileName: 'app-config.json',
+        filePath: '/config/'
+      }
+    },
+    {
+      id: '15',
+      type: 'app_installed',
+      title: 'Analytics platform installed',
+      description: 'DataViz Analytics Suite has been installed to provide comprehensive business intelligence dashboards.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 780).toISOString(),
+      metadata: {
+        appName: 'DataViz Analytics Suite',
+        appVersion: 'v4.2.3'
+      }
+    },
+    {
+      id: '16',
+      type: 'message_received',
+      title: 'New message from Rachel Green',
+      description: 'The client meeting went well! They approved the mockups and want to move forward with development.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 840).toISOString(),
+      metadata: {
+        contact: 'Rachel Green',
+        threadId: 'thread_vwx234'
+      }
+    },
+    {
+      id: '17',
+      type: 'file_deleted',
+      title: 'Duplicate files removed',
+      description: 'Removed duplicate image assets that were consuming unnecessary storage space.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 900).toISOString(),
+      metadata: {
+        fileName: 'hero-banner-copy.png',
+        filePath: '/assets/images/'
+      }
+    },
+    {
+      id: '18',
+      type: 'thread_started',
+      title: 'New conversation with Michael Brown',
+      description: 'Michael Brown initiated a discussion about implementing automated testing for the mobile application.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 960).toISOString(),
+      metadata: {
+        contact: 'Michael Brown',
+        threadId: 'thread_yzab56'
+      }
+    },
+    {
+      id: '19',
+      type: 'file_altered',
+      title: 'API documentation updated',
+      description: 'REST API documentation has been updated with new endpoints and improved examples.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1020).toISOString(),
+      metadata: {
+        fileName: 'api-docs.md',
+        filePath: '/documentation/'
+      }
+    },
+    {
+      id: '20',
+      type: 'message_received',
+      title: 'New message from Anna Davis',
+      description: 'I\'ve finished the user research analysis. The findings are quite interesting and will impact our roadmap.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1080).toISOString(),
+      metadata: {
+        contact: 'Anna Davis',
+        threadId: 'thread_cdef78'
+      }
+    },
+    {
+      id: '21',
+      type: 'app_installed',
+      title: 'Project management tool installed',
+      description: 'TaskFlow Pro has been installed to streamline project management and team collaboration.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1140).toISOString(),
+      metadata: {
+        appName: 'TaskFlow Pro',
+        appVersion: 'v5.1.2'
+      }
+    },
+    {
+      id: '22',
+      type: 'file_deleted',
+      title: 'Test data cleaned up',
+      description: 'Removed test database files and mock data that are no longer needed for development.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1200).toISOString(),
+      metadata: {
+        fileName: 'test-data.sql',
+        filePath: '/database/test/'
+      }
+    },
+    {
+      id: '23',
+      type: 'message_received',
+      title: 'New message from Tom Martinez',
+      description: 'The performance optimization is complete. Page load times have improved by 40% across all devices.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1260).toISOString(),
+      metadata: {
+        contact: 'Tom Martinez',
+        threadId: 'thread_ghij90'
+      }
+    },
+    {
+      id: '24',
+      type: 'thread_started',
+      title: 'New conversation with Sophie Clark',
+      description: 'Sophie Clark started a discussion about the upcoming product demo and presentation materials.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1320).toISOString(),
+      metadata: {
+        contact: 'Sophie Clark',
+        threadId: 'thread_klmn12'
+      }
+    },
+    {
+      id: '25',
+      type: 'file_altered',
+      title: 'User guide updated',
+      description: 'The user manual has been revised with new screenshots and step-by-step tutorials.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1380).toISOString(),
+      metadata: {
+        fileName: 'user-guide.pdf',
+        filePath: '/documentation/guides/'
+      }
     }
   ]
 }
