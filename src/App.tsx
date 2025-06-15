@@ -282,6 +282,48 @@ const defaultEventsData: EventsData = {
         fileName: 'user-guide.pdf',
         filePath: '/documentation/guides/'
       }
+    },
+    {
+      id: '26',
+      type: 'contact_request',
+      title: 'New contact request from Jennifer Martinez',
+      description: 'Jennifer Martinez would like to connect with you. She is a UX Designer at TechFlow Inc.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+      metadata: {
+        contact: 'Jennifer Martinez'
+      }
+    },
+    {
+      id: '27',
+      type: 'email_received',
+      title: 'New email from project-updates@company.com',
+      description: 'Weekly project status update with progress reports from all active development teams.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 75).toISOString(),
+      metadata: {
+        sender: 'project-updates@company.com',
+        subject: 'Weekly Project Status Update - Week 12'
+      }
+    },
+    {
+      id: '28',
+      type: 'contact_request',
+      title: 'New contact request from Ryan Thompson',
+      description: 'Ryan Thompson from Digital Solutions wants to connect. He mentioned your work on the mobile app project.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 450).toISOString(),
+      metadata: {
+        contact: 'Ryan Thompson'
+      }
+    },
+    {
+      id: '29',
+      type: 'email_received',
+      title: 'New email from sarah.chen@client.com',
+      description: 'Client feedback on the latest design mockups with detailed comments and requested revisions.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1440).toISOString(),
+      metadata: {
+        sender: 'sarah.chen@client.com',
+        subject: 'Re: Design Mockups - Feedback and Revisions'
+      }
     }
   ]
 }
@@ -316,7 +358,9 @@ export default function App() {
           event.description.toLowerCase().includes(query) ||
           event.metadata?.contact?.toLowerCase().includes(query) ||
           event.metadata?.fileName?.toLowerCase().includes(query) ||
-          event.metadata?.appName?.toLowerCase().includes(query)
+          event.metadata?.appName?.toLowerCase().includes(query) ||
+          event.metadata?.sender?.toLowerCase().includes(query) ||
+          event.metadata?.subject?.toLowerCase().includes(query)
         )
       }
 

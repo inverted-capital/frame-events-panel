@@ -6,7 +6,9 @@ import {
   Package,
   Clock,
   User,
-  File
+  File,
+  UserPlus,
+  Mail
 } from 'lucide-react'
 import type { Event } from '../types/events'
 
@@ -27,6 +29,10 @@ const EventCard = ({ event }: EventCardProps) => {
         return <FileX className="w-5 h-5 text-red-500" />
       case 'app_installed':
         return <Package className="w-5 h-5 text-purple-500" />
+      case 'contact_request':
+        return <UserPlus className="w-5 h-5 text-teal-500" />
+      case 'email_received':
+        return <Mail className="w-5 h-5 text-indigo-500" />
       default:
         return <Clock className="w-5 h-5 text-gray-500" />
     }
@@ -44,6 +50,10 @@ const EventCard = ({ event }: EventCardProps) => {
         return 'border-l-red-500 bg-red-50'
       case 'app_installed':
         return 'border-l-purple-500 bg-purple-50'
+      case 'contact_request':
+        return 'border-l-teal-500 bg-teal-50'
+      case 'email_received':
+        return 'border-l-indigo-500 bg-indigo-50'
       default:
         return 'border-l-gray-500 bg-gray-50'
     }
@@ -80,6 +90,18 @@ const EventCard = ({ event }: EventCardProps) => {
                   <div className="flex items-center space-x-1">
                     <User className="w-4 h-4" />
                     <span>{event.metadata.contact}</span>
+                  </div>
+                )}
+                {event.metadata.sender && (
+                  <div className="flex items-center space-x-1">
+                    <Mail className="w-4 h-4" />
+                    <span>{event.metadata.sender}</span>
+                  </div>
+                )}
+                {event.metadata.subject && (
+                  <div className="flex items-center space-x-1">
+                    <span className="font-medium">Subject:</span>
+                    <span>{event.metadata.subject}</span>
                   </div>
                 )}
                 {event.metadata.fileName && (

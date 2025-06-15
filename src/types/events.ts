@@ -5,7 +5,9 @@ export const eventTypeSchema = z.enum([
   'thread_started', 
   'file_altered',
   'file_deleted',
-  'app_installed'
+  'app_installed',
+  'contact_request',
+  'email_received'
 ])
 
 export const eventSchema = z.object({
@@ -20,7 +22,9 @@ export const eventSchema = z.object({
     fileName: z.string().optional(),
     filePath: z.string().optional(),
     appName: z.string().optional(),
-    appVersion: z.string().optional()
+    appVersion: z.string().optional(),
+    sender: z.string().optional(),
+    subject: z.string().optional()
   }).optional()
 })
 

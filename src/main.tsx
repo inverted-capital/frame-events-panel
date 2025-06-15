@@ -172,6 +172,48 @@ const mockEventsData: EventsData = {
         appName: 'DataViz Analytics Suite',
         appVersion: 'v4.2.3'
       }
+    },
+    {
+      id: '16',
+      type: 'contact_request',
+      title: 'New contact request from Jennifer Martinez',
+      description: 'Jennifer Martinez would like to connect with you. She is a UX Designer at TechFlow Inc.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+      metadata: {
+        contact: 'Jennifer Martinez'
+      }
+    },
+    {
+      id: '17',
+      type: 'email_received',
+      title: 'New email from project-updates@company.com',
+      description: 'Weekly project status update with progress reports from all active development teams.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 75).toISOString(),
+      metadata: {
+        sender: 'project-updates@company.com',
+        subject: 'Weekly Project Status Update - Week 12'
+      }
+    },
+    {
+      id: '18',
+      type: 'contact_request',
+      title: 'New contact request from Ryan Thompson',
+      description: 'Ryan Thompson from Digital Solutions wants to connect. He mentioned your work on the mobile app project.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 450).toISOString(),
+      metadata: {
+        contact: 'Ryan Thompson'
+      }
+    },
+    {
+      id: '19',
+      type: 'email_received',
+      title: 'New email from sarah.chen@client.com',
+      description: 'Client feedback on the latest design mockups with detailed comments and requested revisions.',
+      timestamp: new Date(Date.now() - 1000 * 60 * 1440).toISOString(),
+      metadata: {
+        sender: 'sarah.chen@client.com',
+        subject: 'Re: Design Mockups - Feedback and Revisions'
+      }
     }
   ]
 }
