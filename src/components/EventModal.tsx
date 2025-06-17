@@ -14,7 +14,7 @@ import {
   Hash,
   Calendar
 } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, memo, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import type { Event } from '../types/events'
 
@@ -33,9 +33,8 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
     }
   }, [event])
 
-  if (!event) return null
-
-  const getEventIcon = () => {
+  const eventIcon = useMemo(() => {
+    if (!event) return null
     switch (event.type) {
       case 'message_received':
         return <MessageCircle className="w-8 h-8 text-blue-500" />
@@ -54,9 +53,10 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
       default:
         return <Clock className="w-8 h-8 text-gray-500" />
     }
-  }
+  }, [event])
 
-  const getEventTypeLabel = () => {
+  const eventTypeLabel = useMemo(() => {
+    if (!event) return ''
     switch (event.type) {
       case 'message_received':
         return 'Message Received'
@@ -75,10 +75,11 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
       default:
         return 'Unknown Event'
     }
-  }
+  }, [event])
 
-  const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp)
+  const formattedTimestamp = useMemo(() => {
+    if (!event) return ''
+    const date = new Date(event.timestamp)
     return new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
       year: 'numeric',
@@ -89,7 +90,9 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
       second: '2-digit',
       timeZoneName: 'short'
     }).format(date)
-  }
+  }, [event])
+
+  if (!event) return null
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -106,10 +109,10 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-gray-200">
           <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0 mt-1">{getEventIcon()}</div>
+            <div className="flex-shrink-0 mt-1">{eventIcon}</div>
             <div>
               <div className="text-sm font-medium text-gray-500 mb-1">
-                {getEventTypeLabel()}
+                {eventTypeLabel}
               </div>
               <h2 className="text-2xl font-bold text-gray-900 leading-tight">
                 {event.title}
@@ -141,7 +144,7 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
             </h3>
             <div className="flex items-center space-x-2 text-gray-600">
               <Calendar className="w-5 h-5" />
-              <span>{formatTimestamp(event.timestamp)}</span>
+              <span>{formattedTimestamp}</span>
             </div>
           </div>
 
@@ -286,4 +289,4 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
   return createPortal(modal, document.body)
 }
 
-export default EventModal
+export default memo(EventModal)
