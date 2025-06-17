@@ -14,6 +14,8 @@ import {
   Hash,
   Calendar
 } from 'lucide-react'
+import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import type { Event } from '../types/events'
 
 interface EventModalProps {
@@ -22,6 +24,15 @@ interface EventModalProps {
 }
 
 const EventModal = ({ event, onClose }: EventModalProps) => {
+  useEffect(() => {
+    if (!event) return
+    document.body.style.overflow = 'hidden'
+    window.scrollTo({ top: 0 })
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [event])
+
   if (!event) return null
 
   const getEventIcon = () => {
@@ -86,7 +97,7 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
     }
   }
 
-  return (
+  const modal = (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleBackdropClick}
@@ -271,6 +282,8 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
       </div>
     </div>
   )
+
+  return createPortal(modal, document.body)
 }
 
 export default EventModal
