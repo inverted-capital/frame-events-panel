@@ -11,6 +11,7 @@ import {
   Mail,
   Terminal
 } from 'lucide-react'
+import { memo, useMemo } from 'react'
 import type { Event } from '../types/events'
 
 interface EventCardProps {
@@ -19,7 +20,7 @@ interface EventCardProps {
 }
 
 const EventCard = ({ event, onClick }: EventCardProps) => {
-  const getEventIcon = () => {
+  const eventIcon = useMemo(() => {
     switch (event.type) {
       case 'message_received':
         return <MessageCircle className="w-5 h-5 text-blue-500" />
@@ -40,9 +41,9 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
       default:
         return <Clock className="w-5 h-5 text-gray-500" />
     }
-  }
+  }, [event.type])
 
-  const getEventColor = () => {
+  const eventColor = useMemo(() => {
     switch (event.type) {
       case 'message_received':
         return 'border-l-blue-500 bg-blue-50'
@@ -63,26 +64,26 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
       default:
         return 'border-l-gray-500 bg-gray-50'
     }
-  }
+  }, [event.type])
 
-  const formatTime = (timestamp: string) => {
-    const date = new Date(timestamp)
+  const formattedTime = useMemo(() => {
+    const date = new Date(event.timestamp)
     return new Intl.DateTimeFormat('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       month: 'short',
       day: 'numeric'
     }).format(date)
-  }
+  }, [event.timestamp])
 
   return (
     <div
-      className={`border-l-4 ${getEventColor()} rounded-r-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 cursor-pointer hover:scale-[1.01]`}
+      className={`border-l-4 ${eventColor} rounded-r-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 cursor-pointer hover:scale-[1.01]`}
       onClick={onClick}
     >
       <div className="flex items-start justify-between">
         <div className="flex items-start space-x-4 flex-1">
-          <div className="flex-shrink-0 mt-1">{getEventIcon()}</div>
+          <div className="flex-shrink-0 mt-1">{eventIcon}</div>
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-semibold text-gray-900 mb-1">
               {event.title}
@@ -143,11 +144,11 @@ const EventCard = ({ event, onClick }: EventCardProps) => {
         </div>
         <div className="flex items-center space-x-1 text-sm text-gray-400 ml-4">
           <Clock className="w-4 h-4" />
-          <span>{formatTime(event.timestamp)}</span>
+          <span>{formattedTime}</span>
         </div>
       </div>
     </div>
   )
 }
 
-export default EventCard
+export default memo(EventCard)
