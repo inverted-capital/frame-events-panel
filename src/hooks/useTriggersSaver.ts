@@ -5,6 +5,7 @@ const useTriggersSaver = () => {
   const artifact = useArtifact()
 
   return async (data: TriggersData): Promise<void> => {
+    if (!artifact) return
     artifact.files.write.json('triggers.json', data)
     await artifact.branch.write.commit('Update triggers data')
   }

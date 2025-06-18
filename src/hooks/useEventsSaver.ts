@@ -5,6 +5,7 @@ const useEventsSaver = () => {
   const artifact = useArtifact()
 
   return async (data: EventsData): Promise<void> => {
+    if (!artifact) return
     artifact.files.write.json('events.json', data)
     await artifact.branch.write.commit('Update events data')
   }
