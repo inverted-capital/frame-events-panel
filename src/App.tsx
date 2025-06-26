@@ -494,27 +494,13 @@ const defaultTriggersData: TriggersData = {
 }
 
 export default function App() {
-  const { data, loading, error } = useEventsData()
-  const { data: triggersData, error: triggersError } = useTriggersData()
-  const save = useEventsSaver()
-  const saveTriggers = useTriggersSaver()
+  const { data, loading } = useEventsData()
+  const { data: triggersData } = useTriggersData()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedTypes, setSelectedTypes] = useState<EventType[]>([])
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [showTriggerManager, setShowTriggerManager] = useState(false)
-
-  useEffect(() => {
-    if (error === 'events.json not found') {
-      save(defaultEventsData)
-    }
-  }, [error, save])
-
-  useEffect(() => {
-    if (triggersError === 'triggers.json not found') {
-      saveTriggers(defaultTriggersData)
-    }
-  }, [triggersError, saveTriggers])
 
   useEffect(() => {
     if (data?.events) {
